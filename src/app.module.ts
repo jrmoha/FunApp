@@ -4,10 +4,16 @@ import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { validateEnvFile } from './env.validator';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { UserModule } from './user/user.module';
+import { User } from './user/user.entity';
+import { LocationService } from './utils/location';
+import { UserService } from './user/user.service';
 
 @Module({
   imports: [
     ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: '.env',
       validate: validateEnvFile,
     }),
     TypeOrmModule.forRootAsync({
@@ -20,14 +26,15 @@ import { TypeOrmModule } from '@nestjs/typeorm';
         username: configService.get('DATABASE_USERNAME'),
         password: configService.get('DATABASE_PASSWORD'),
         database: configService.get('DATABASE'),
-        entities:[],
+        entities: [User],
         autoLoadEntities: true,
         synchronize: true,
       }),
     }),
-    
+    TypeOrmModule.forFeature([User]),
+    UserModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService,LocationService,UserService],
 })
 export class AppModule {}

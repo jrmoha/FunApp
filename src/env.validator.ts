@@ -30,6 +30,12 @@ class EnvironmentVariables {
 
   @IsString()
   DATABASE: string;
+
+  @IsString()
+  OPENWEATHER_API_URL: string;
+
+  @IsString()
+  OPENWEATHER_API_KEY: string;
 }
 
 export function validateEnvFile(config: Record<string, unknown>) {
