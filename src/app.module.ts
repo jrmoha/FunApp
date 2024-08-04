@@ -1,6 +1,4 @@
 import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { validateEnvFile } from './env.validator';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -34,7 +32,7 @@ import { UserService } from './user/user.service';
     TypeOrmModule.forFeature([User]),
     UserModule,
   ],
-  controllers: [AppController],
-  providers: [AppService,LocationService,UserService],
+  controllers: [],
+  providers: [UserService, LocationService],
 })
 export class AppModule {}
