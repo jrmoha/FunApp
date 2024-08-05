@@ -42,7 +42,7 @@ export class UserService {
    * @throws {ConflictException} If the email input doesn't follow unique constraint
    * @returns {Promise<User>} The created user
    */
-  async create(input: SignupDto): Promise<{ token: string }> {
+  async create(input: SignupDto): Promise<{ token: string; id: string }> {
     const email_exists = await this.userRepository.findOne({
       where: { email: input.email },
     });
@@ -61,6 +61,6 @@ export class UserService {
 
     const payload = { email: user.email, id: user.id };
     const token = await this.jwtService.signAsync(payload);
-    return { token };
+    return { token, id: user.id };
   }
 }

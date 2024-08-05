@@ -129,6 +129,7 @@ describe('UserService', () => {
       const result = await service.create(input);
 
       expect(result).toHaveProperty('token');
+      expect(result).toHaveProperty('id');
       expect(userRepository.findOne).toHaveBeenCalledWith({
         where: { email: input.email },
       });

@@ -24,6 +24,6 @@ export class LocationService {
       .then((res) => res.json())
       .then((data) => {
         return { city: data[0]?.name, country: data[0]?.country };
-      }); //todo
+      });
   }
 }
