@@ -5,8 +5,9 @@
 ### Clone the Repository
 
 ```bash
-git clone https://github.com/jrmoha/FunApp
-cd FunApp
+git clone https://github.com/jrmoha/FunApp fun-app
+ 
+cd fun-app
 ```
 
 ### Install Dependencies
