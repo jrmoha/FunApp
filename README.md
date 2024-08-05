@@ -6,7 +6,7 @@
 
 ```bash
 git clone https://github.com/jrmoha/FunApp
-cd fun-app
+cd FunApp
 ```
 
 ### Install Dependencies

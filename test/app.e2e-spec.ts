@@ -45,7 +45,7 @@ describe('AppController (e2e)', () => {
 
     expect(response.body).toEqual({
       name: 'test',
-      email:  rand_email,
+      email: rand_email,
       city: 'Cairo',
     });
   });

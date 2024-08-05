@@ -29,6 +29,7 @@ import { UserService } from './user/user.service';
         synchronize: true,
       }),
     }),
+
     TypeOrmModule.forFeature([User]),
     UserModule,
   ],
