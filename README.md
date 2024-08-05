@@ -26,16 +26,10 @@ cp .env.example .env
 
 ### Create Database
 
-Ensure that you have PostgreSQL running and create a new database named `fun_-_app`:
+Ensure that you have PostgreSQL running and create a new database named `fun_app`:
 
 ```sql
 CREATE DATABASE fun_app;
-```
-
-## Installation
-
-```bash
-yarn install
 ```
 
 ## Running the App
