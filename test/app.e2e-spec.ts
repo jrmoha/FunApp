@@ -6,7 +6,7 @@ import { AppModule } from '../src/app.module';
 describe('AppController (e2e)', () => {
   let app: INestApplication;
   let rand_id: string;
-  let token =
+  const token =
     'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Ik1hcmxleS5FcmRtYW4zNkBnbWFpbC5jb20iLCJpZCI6IjU2ZjM1ODhmLWJjZmYtNDg2My1iN2IxLTVjNWZlYTNhZjZlYiIsImlhdCI6MTcyMjg3ODQ1MCwiZXhwIjoxNzIyOTY0ODUwfQ.8Kx_QIRKc5AHci_mw6ujxpmwNmA_q4ZdIRtqr6sHSMI';
 
   const rand_email = `test${new Date().getTime()}@test.com`;
@@ -38,7 +38,6 @@ describe('AppController (e2e)', () => {
       token: expect.any(String),
     });
   });
-  //edit the test to match the new implementation of the profile endpoint include token in the header
   it('/GET profile', async () => {
     const response = await request(app.getHttpServer())
       .get('/user/' + rand_id)
@@ -50,7 +49,7 @@ describe('AppController (e2e)', () => {
       city: 'Cairo',
     });
   });
-  it('/GET profile', async () => {
+  it('should return 401 if token is not provided', async () => {
     const response = await request(app.getHttpServer())
       .get('/user/' + rand_id)
       .expect(401);
