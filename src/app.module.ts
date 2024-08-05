@@ -37,7 +37,6 @@ import { JwtModule } from '@nestjs/jwt';
       global: true,
       useFactory: (configService: ConfigService) => ({
         secret: configService.get('JWT_SECRET'),
-        secretOrPrivateKey: configService.get('JWT_SECRET'),
         signOptions: { expiresIn: '1d' },
       }),
     }),
