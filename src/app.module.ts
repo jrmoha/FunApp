@@ -6,6 +6,7 @@ import { UserModule } from './user/user.module';
 import { User } from './user/user.entity';
 import { LocationService } from './utils/location';
 import { UserService } from './user/user.service';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -29,11 +30,19 @@ import { UserService } from './user/user.service';
         synchronize: true,
       }),
     }),
-
     TypeOrmModule.forFeature([User]),
+    JwtModule.registerAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      global: true,
+      useFactory: (configService: ConfigService) => ({
+        secret: configService.get('JWT_SECRET'),
+        secretOrPrivateKey: configService.get('JWT_SECRET'),
+        signOptions: { expiresIn: '1d' },
+      }),
+    }),
     UserModule,
   ],
-  controllers: [],
   providers: [UserService, LocationService],
 })
 export class AppModule {}

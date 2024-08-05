@@ -36,6 +36,9 @@ class EnvironmentVariables {
 
   @IsString()
   OPENWEATHER_API_KEY: string;
+
+  @IsString()
+  JWT_SECRET: string;
 }
 
 export function validateEnvFile(config: Record<string, unknown>) {

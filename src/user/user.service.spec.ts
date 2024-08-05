@@ -11,6 +11,7 @@ import { UserService } from './user.service';
 import { User } from './user.entity';
 import { SignupDto } from './dto/signup.dto';
 import { LocationService } from '../utils/location';
+import { AppModule } from '../app.module';
 
 describe('UserService', () => {
   let service: UserService;
@@ -19,6 +20,7 @@ describe('UserService', () => {
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
+      imports: [AppModule],
       providers: [
         UserService,
         ConfigService,
@@ -81,7 +83,7 @@ describe('UserService', () => {
     });
   });
 
-  describe('create', () => {
+  describe('signup', () => {
     const input: SignupDto = {
       name: 'Mostafa Mouhamed',
       email: 'mostafa@example.com',
@@ -126,7 +128,7 @@ describe('UserService', () => {
 
       const result = await service.create(input);
 
-      expect(result).toEqual({ id: 'uuid', ...input, city: 'Cairo' });
+      expect(result).toHaveProperty('token');
       expect(userRepository.findOne).toHaveBeenCalledWith({
         where: { email: input.email },
       });

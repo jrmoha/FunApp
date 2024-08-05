@@ -9,12 +9,14 @@ import { User } from './user.entity';
 import { Repository } from 'typeorm';
 import { SignupDto } from './dto/signup.dto';
 import { LocationService } from '../utils/location';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UserService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
     private locationService: LocationService,
+    private jwtService: JwtService,
   ) {}
 
   /**
@@ -40,7 +42,7 @@ export class UserService {
    * @throws {ConflictException} If the email input doesn't follow unique constraint
    * @returns {Promise<User>} The created user
    */
-  async create(input: SignupDto): Promise<User> {
+  async create(input: SignupDto): Promise<{ token: string }> {
     const email_exists = await this.userRepository.findOne({
       where: { email: input.email },
     });
@@ -55,6 +57,10 @@ export class UserService {
     user.email = input.email;
     user.city = city;
 
-    return this.userRepository.save(user);
+    await this.userRepository.save(user);
+
+    const payload = { email: user.email, id: user.id };
+    const token = await this.jwtService.signAsync(payload);
+    return { token };
   }
 }

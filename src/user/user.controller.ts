@@ -6,19 +6,22 @@ import {
   Param,
   ParseUUIDPipe,
   Post,
+  UseGuards,
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { ApiHeaders, ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { SignupDto } from './dto/signup.dto';
 import { User } from './user.entity';
+import { AuthGuard } from '../auth/auth.guard';
 
 @Controller('user')
 @ApiTags('User')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
+  @UseGuards(AuthGuard)
   @Get('/:user_id')
   @ApiResponse({
     status: HttpStatus.OK,
@@ -35,6 +38,12 @@ export class UserController {
     description: 'The target user id',
     type: 'string',
   })
+  @ApiHeaders([
+    {
+      name: 'token',
+      description: 'access token',
+    },
+  ])
   profile(@Param('user_id', ParseUUIDPipe) user_id: string): Promise<User> {
     return this.userService.profile(user_id);
   }

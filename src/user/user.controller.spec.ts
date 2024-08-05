@@ -1,3 +1,4 @@
+import { JwtService } from '@nestjs/jwt';
 import { Test, TestingModule } from '@nestjs/testing';
 import { randomUUID } from 'crypto';
 import {
@@ -15,10 +16,7 @@ describe('UserController', () => {
   const mockUserService = {
     create: jest.fn((dto) => {
       return {
-        id: randomUUID(),
-        name: dto.name,
-        email: dto.email,
-        city: 'Cairo',
+        token: 'test-token',
       };
     }),
     profile: jest.fn((id) => {
@@ -32,7 +30,7 @@ describe('UserController', () => {
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UserController],
-      providers: [UserService],
+      providers: [JwtService, UserService],
     })
       .overrideProvider(UserService)
       .useValue(mockUserService)
@@ -55,12 +53,9 @@ describe('UserController', () => {
       latitude: 30.0444,
       longitude: 31.2357,
     };
-    it('should return a user', async () => {
+    it('should create a new user and returns token', async () => {
       expect(await userController.signup(dto)).toEqual({
-        id: expect.any(String),
-        name: dto.name,
-        email: dto.email,
-        city: 'Cairo',
+        token: expect.any(String),
       });
 
       expect(mockUserService.create).toHaveBeenCalledWith(dto);
@@ -112,7 +107,9 @@ describe('UserController', () => {
       expect(mockUserService.profile).toHaveBeenCalledWith(id);
     });
     it('should throw an error if user not found', async () => {
-      mockUserService.profile.mockRejectedValue(new NotFoundException() as never);
+      mockUserService.profile.mockRejectedValue(
+        new NotFoundException() as never,
+      );
       await expect(userController.profile(id)).rejects.toThrow(
         NotFoundException,
       );
