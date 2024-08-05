@@ -24,12 +24,12 @@ export class User {
     type: 'timestamp',
     default: () => 'NOW()',
   })
-  created_at: Date;
+  created_at?: Date;
 
   @UpdateDateColumn({
     type: 'timestamp',
     default: () => 'NOW()',
     onUpdate: 'NOW()',
   })
-  updated_at: Date;
+  updated_at?: Date;
 }

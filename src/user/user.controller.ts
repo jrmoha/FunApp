@@ -9,9 +9,9 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
+import { ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserService } from './user.service';
 import { SignupDto } from './dto/signup.dto';
-import { ApiParam, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { User } from './user.entity';
 
 @Controller('user')
@@ -33,7 +33,7 @@ export class UserController {
   @ApiParam({
     name: 'user_id',
     description: 'The target user id',
-    type: 'uuid string',
+    type: 'string',
   })
   profile(@Param('user_id', ParseUUIDPipe) user_id: string): Promise<User> {
     return this.userService.profile(user_id);
@@ -45,7 +45,7 @@ export class UserController {
     status: HttpStatus.CREATED,
     description: 'The created user',
     example: {
-      id: 'uuid string',
+      id: 'string',
       name: 'string',
       email: 'string',
       city: 'string',

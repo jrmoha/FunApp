@@ -1,10 +1,10 @@
-import { ApiProperty } from '@nestjs/swagger';
 import { IsEmail, IsNumber, IsString, Max, Min } from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
 import {
   EgyptBounds,
   LatitudeErrorMessage,
   LongitudeErrorMessage,
-} from 'src/constants';
+} from '../../constants';
 
 export class SignupDto {
   @IsString()
