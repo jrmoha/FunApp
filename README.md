@@ -55,5 +55,4 @@ $ yarn run test:e2e
 ## Documentation
 
 ```bash
-# access swagger documentation
 $ http://localhost:3000/api

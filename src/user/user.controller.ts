@@ -33,6 +33,7 @@ export class UserController {
     },
   })
   @ApiResponse({ status: HttpStatus.NOT_FOUND, description: 'User not found' })
+  @ApiResponse({ status: HttpStatus.UNAUTHORIZED, description: 'Unauthorized' })
   @ApiParam({
     name: 'user_id',
     description: 'The target user id',
@@ -54,10 +55,8 @@ export class UserController {
     status: HttpStatus.CREATED,
     description: 'The created user',
     example: {
+      token: 'string',
       id: 'string',
-      name: 'string',
-      email: 'string',
-      city: 'string',
     },
   })
   @ApiResponse({
