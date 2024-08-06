@@ -6,8 +6,7 @@ import { AppModule } from '../src/app.module';
 describe('AppController (e2e)', () => {
   let app: INestApplication;
   let rand_id: string;
-  const token =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6Ik1hcmxleS5FcmRtYW4zNkBnbWFpbC5jb20iLCJpZCI6IjU2ZjM1ODhmLWJjZmYtNDg2My1iN2IxLTVjNWZlYTNhZjZlYiIsImlhdCI6MTcyMjg3ODQ1MCwiZXhwIjoxNzIyOTY0ODUwfQ.8Kx_QIRKc5AHci_mw6ujxpmwNmA_q4ZdIRtqr6sHSMI';
+  let token!: string;
 
   const rand_email = `test${new Date().getTime()}@test.com`;
   beforeEach(async () => {
@@ -32,7 +31,7 @@ describe('AppController (e2e)', () => {
       })
       .expect(201);
     rand_id = response.body.id;
-
+    token = response.body.token;
     expect(response.body).toEqual({
       id: expect.any(String),
       token: expect.any(String),

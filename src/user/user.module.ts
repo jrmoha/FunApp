@@ -1,4 +1,3 @@
-import { JwtService } from '@nestjs/jwt';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserService } from './user.service';

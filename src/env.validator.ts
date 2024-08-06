@@ -1,4 +1,3 @@
-import { plainToInstance } from 'class-transformer';
 import {
   Min,
   Max,
@@ -7,6 +6,7 @@ import {
   IsString,
   IsOptional,
 } from 'class-validator';
+import { plainToInstance } from 'class-transformer';
 
 class EnvironmentVariables {
   @IsInt()

@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { validateEnvFile } from './env.validator';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { JwtModule } from '@nestjs/jwt';
+import { validateEnvFile } from './env.validator';
 import { UserModule } from './user/user.module';
 import { User } from './user/user.entity';
 import { LocationService } from './utils/location';
 import { UserService } from './user/user.service';
-import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
@@ -37,7 +37,7 @@ import { JwtModule } from '@nestjs/jwt';
       global: true,
       useFactory: (configService: ConfigService) => ({
         secret: configService.get('JWT_SECRET'),
-        signOptions: { expiresIn: '1d' },
+        signOptions: { expiresIn: '1w' },
       }),
     }),
     UserModule,

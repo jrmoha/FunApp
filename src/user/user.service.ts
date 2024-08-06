@@ -5,11 +5,11 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { JwtService } from '@nestjs/jwt';
 import { User } from './user.entity';
 import { Repository } from 'typeorm';
 import { SignupDto } from './dto/signup.dto';
 import { LocationService } from '../utils/location';
-import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UserService {
